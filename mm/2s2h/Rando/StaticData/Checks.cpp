@@ -2683,6 +2683,22 @@ std::map<RandoCheckId, RandoStaticCheck> Checks = {
     RC(RC_TERMINA_FIELD_GOSSIP_STONE_GROTTO_3_BEEHIVE,                   RCTYPE_BEEHIVE,          SCENE_KAKUSIANA,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
     RC(RC_WOODFALL_TEMPLE_ENTRANCE_BEEHIVE,                              RCTYPE_BEEHIVE,          SCENE_MITURIN,                  FLAG_CYCL_SCENE_COLLECTIBLE, 0x20,                                                                RI_RUPEE_BLUE),
     RC(RC_WOODFALL_TEMPLE_MAZE_ROOM_BEEHIVE,                             RCTYPE_BEEHIVE,          SCENE_MITURIN,                  FLAG_NONE,                   0x0,                                                                 RI_NONE),
+
+    // Rocks //
+    RC(RC_TERMINA_FIELD_WALL_ROCK_1,                                     RCTYPE_ROCK,             SCENE_00KEIKOKU,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_TERMINA_FIELD_WALL_ROCK_2,                                     RCTYPE_ROCK,             SCENE_00KEIKOKU,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_TERMINA_FIELD_WALL_ROCK_3,                                     RCTYPE_ROCK,             SCENE_00KEIKOKU,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_TERMINA_FIELD_WALL_ROCK_4,                                     RCTYPE_ROCK,             SCENE_00KEIKOKU,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_TERMINA_FIELD_WALL_ROCK_5,                                     RCTYPE_ROCK,             SCENE_00KEIKOKU,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_TERMINA_FIELD_WALL_ROCK_6,                                     RCTYPE_ROCK,             SCENE_00KEIKOKU,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_TERMINA_FIELD_WALL_ROCK_7,                                     RCTYPE_ROCK,             SCENE_00KEIKOKU,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_TERMINA_FIELD_WALL_ROCK_8,                                     RCTYPE_ROCK,             SCENE_00KEIKOKU,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_TERMINA_FIELD_WALL_ROCK_9,                                     RCTYPE_ROCK,             SCENE_00KEIKOKU,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_IKANA_GRAVEYARD_ROCK_1,                                        RCTYPE_ROCK,             SCENE_BOTI,                     FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_IKANA_GRAVEYARD_ROCK_2,                                        RCTYPE_ROCK,             SCENE_BOTI,                     FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_IKANA_GRAVEYARD_ROCK_3,                                        RCTYPE_ROCK,             SCENE_BOTI,                     FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_IKANA_GRAVEYARD_ROCK_4,                                        RCTYPE_ROCK,             SCENE_BOTI,                     FLAG_NONE,                   0x0,                                                                 RI_NONE),
+    RC(RC_IKANA_GRAVEYARD_ROCK_5,                                        RCTYPE_ROCK,             SCENE_BOTI,                     FLAG_NONE,                   0x0,                                                                 RI_NONE),
 };
 // clang-format on
 
