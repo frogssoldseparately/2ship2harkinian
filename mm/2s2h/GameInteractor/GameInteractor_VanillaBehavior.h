@@ -2072,6 +2072,19 @@ typedef enum {
     VB_RESET_PUTAWAY_TIMER,
 
     // #### `result`
+    // ##### In `EnIshi_DropCollectable`:
+    // ```c
+    // collectableItem00Id >= ITEM00_RUPEE_GREEN
+    // ```
+    // ##### In `EnIshi_DropItem`:
+    // ```c
+    // (ENISHI_GET_SIZE_FLAG(&this->actor) == ISHI_SIZE_SMALL_ROCK) && !ENISHI_GET_IGNORE_DROP_TABLE_FLAG(&this->actor)
+    // ```
+    // #### `args`
+    // - `*EnIshi`
+    VB_ROCK_DROP_COLLECTIBLE,
+
+    // #### `result`
     // ```c
     // CHECK_QUEST_ITEM(QUEST_SONG_EPONA)
     // ```

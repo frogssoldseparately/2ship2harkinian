@@ -1,9 +1,6 @@
 #include "ActorBehavior.h"
-#include <spdlog/spdlog.h>
 #include "2s2h/ObjectExtension/ActorListIndex.h"
-
-// extern EnItem00* spawnReplacementItem(Vec3f& pos, Rando::StaticData::RandoStaticCheck& randoStaticCheck);
-extern void SpawnDropItem(Vec3f position, RandoCheckId randoCheckId);
+#include "2s2h/CustomItem/CustomItem.h"
 
 extern "C" {
 #include "overlays/actors/ovl_En_Ishi/z_en_ishi.h"
@@ -11,6 +8,7 @@ extern "C" {
 }
 
 // clang-format off
+// Rocks In Scenes
 std::map<std::tuple<s16, s16, s16>, RandoCheckId> enIshiItemMap = {
     // Goron Shrine
     { { SCENE_16GORON_HOUSE, 0, 7 }, RC_GORON_SHRINE_ROCK_01 },
@@ -100,6 +98,7 @@ std::map<std::tuple<s16, s16, s16>, RandoCheckId> enIshiItemMap = {
     { { SCENE_31MISAKI, 0, 35 }, RC_ZORA_CAPE_TREE_ISLAND_ROCK_5 },
 };
 
+// Rock Rings
 std::map<std::tuple<s16, s16, s16>, RandoCheckId> objMure2RockMap = {
     { { SCENE_00KEIKOKU, 0, 140 }, RC_TERMINA_FIELD_KAMARO_ROCK_1 },
     { { SCENE_IKANAMAE, 0, 35 }, RC_ROAD_TO_IKANA_SHIRO_ROCK_1 },
@@ -107,29 +106,42 @@ std::map<std::tuple<s16, s16, s16>, RandoCheckId> objMure2RockMap = {
 };
 // clang-format on
 
-void OverrideRockDrop(EnIshi* enIshi, RandoCheckId randoCheckId) {
-    if (randoCheckId != RC_UNKNOWN && !RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
-        Rando::ActorBehavior::SetObjectRandoCheckId(enIshi, randoCheckId);
-        // keep the vanilla drop from spawning
-        enIshi->actor.params &= (0xFFFF ^ (7 << 4));
-    }
+void SpawnRockDrop(Vec3f pos, RandoCheckId randoCheckId) {
+    CustomItem::Spawn(
+        pos.x, pos.y, pos.z, 0, CustomItem::KILL_ON_TOUCH | CustomItem::TOSS_ON_SPAWN | CustomItem::ABLE_TO_ZORA_RANG,
+        randoCheckId,
+        [](Actor* actor, PlayState* play) {
+            auto& randoStaticCheck = Rando::StaticData::Checks[(RandoCheckId)CUSTOM_ITEM_PARAM];
+            switch (randoStaticCheck.flagType) {
+                case FLAG_NONE:
+                    RANDO_SAVE_CHECKS[CUSTOM_ITEM_PARAM].eligible = true;
+                    break;
+                case FLAG_CYCL_SCENE_COLLECTIBLE:
+                    Flags_SetCollectible(play, randoStaticCheck.flag);
+                    break;
+                default:
+                    break;
+            }
+        },
+        [](Actor* actor, PlayState* play) {
+            auto& randoSaveCheck = RANDO_SAVE_CHECKS[CUSTOM_ITEM_PARAM];
+            Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
+            Rando::DrawItem(Rando::ConvertItem(randoSaveCheck.randoItemId, (RandoCheckId)CUSTOM_ITEM_PARAM),
+                            (RandoCheckId)CUSTOM_ITEM_PARAM, actor);
+        });
 }
 
 void Rando::ActorBehavior::InitEnIshiBehavior() {
     bool shouldRegister = IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_ROCK_DROPS];
+    // Catches rocks that are part of a scene
     COND_ID_HOOK(OnActorInit, ACTOR_EN_ISHI, shouldRegister, [](Actor* actor) {
         auto it =
             enIshiItemMap.find({ gPlayState->sceneId, gPlayState->roomCtx.curRoom.num, GetActorListIndex(actor) });
         if (it != enIshiItemMap.end()) {
-            OverrideRockDrop((EnIshi*)actor, it->second);
+            SetObjectRandoCheckId(actor, it->second);
         }
     });
-    COND_ID_HOOK(OnActorDestroy, ACTOR_EN_ISHI, shouldRegister, [](Actor* actor) {
-        RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
-        if (randoCheckId != RC_UNKNOWN) {
-            SpawnDropItem(actor->world.pos, randoCheckId);
-        }
-    });
+    // Catches rocks that are spawned in rings
     COND_VB_SHOULD(VB_OBJ_MURE2_SET_CHILD_ROOM, shouldRegister, {
         Actor* actor = va_arg(args, Actor*);
         ObjMure2* objMure2 = (ObjMure2*)actor;
@@ -138,8 +150,17 @@ void Rando::ActorBehavior::InitEnIshiBehavior() {
         if (child != nullptr && child->id == ACTOR_EN_ISHI) {
             auto it = objMure2RockMap.find({ gPlayState->sceneId, actor->room, GetActorListIndex(actor) });
             if (it != objMure2RockMap.end()) {
-                OverrideRockDrop((EnIshi*)child, static_cast<RandoCheckId>(it->second + i));
+                SetObjectRandoCheckId(child, static_cast<RandoCheckId>(it->second + i));
             }
+        }
+    });
+    // Overrides spawn behavior of rock drops
+    COND_VB_SHOULD(VB_ROCK_DROP_COLLECTIBLE, shouldRegister, {
+        EnIshi* enIshi = va_arg(args, EnIshi*);
+        RandoCheckId randoCheckId = GetObjectRandoCheckId(enIshi);
+        if (randoCheckId != RC_UNKNOWN && RANDO_SAVE_CHECKS[randoCheckId].shuffled && !RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
+            SpawnRockDrop(enIshi->actor.world.pos, randoCheckId);
+            *should = false;
         }
     });
 }
