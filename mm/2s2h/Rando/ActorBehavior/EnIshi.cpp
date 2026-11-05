@@ -1,6 +1,9 @@
 #include "ActorBehavior.h"
+#include <libultraship/bridge/consolevariablebridge.h>
+
 #include "2s2h/ObjectExtension/ActorListIndex.h"
 #include "2s2h/CustomItem/CustomItem.h"
+#include "assets/2s2h_assets.h"
 
 extern "C" {
 #include "overlays/actors/ovl_En_Ishi/z_en_ishi.h"
@@ -106,6 +109,55 @@ std::map<std::tuple<s16, s16, s16>, RandoCheckId> objMure2RockMap = {
 };
 // clang-format on
 
+void EnIshi_RandoDraw(Actor* actor, PlayState* play) {
+    /* to be uncommented if/when no rando containers is pulled
+    if (!CVarGetInteger("gRando.RandoContainers", 0)) {
+        Gfx_DrawDListOpa(play, (Gfx*)gSmallRockDL);
+        return;
+    }
+    */
+    if (!CVarGetInteger("gRando.CSMC", 0)) {
+        Gfx_DrawDListOpa(play, (Gfx*)gRockJunkDL);
+        return;
+    }
+    RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
+    RandoItemId randoItemId = Rando::ConvertItem(RANDO_SAVE_CHECKS[randoCheckId].randoItemId, randoCheckId);
+    RandoItemType randoItemType = Rando::StaticData::Items[randoItemId].randoItemType;
+
+    switch (randoItemType) {
+        case RITYPE_BOSS_KEY:
+            Gfx_DrawDListOpa(play, (Gfx*)gRockBossKeyDL);
+            break;
+        case RITYPE_HEALTH:
+            Gfx_DrawDListOpa(play, (Gfx*)gRockHealthDL);
+            break;
+        case RITYPE_LESSER:
+            Gfx_DrawDListOpa(play, (Gfx*)gRockLesserDL);
+            break;
+        case RITYPE_MAJOR:
+            Gfx_DrawDListOpa(play, (Gfx*)gRockMajorDL);
+            break;
+        case RITYPE_MASK:
+            Gfx_DrawDListOpa(play, (Gfx*)gRockMaskDL);
+            break;
+        case RITYPE_SKULLTULA_TOKEN:
+            Gfx_DrawDListOpa(play, (Gfx*)gRockTokenDL);
+            break;
+        case RITYPE_SMALL_KEY:
+            Gfx_DrawDListOpa(play, (Gfx*)gRockSmallKeyDL);
+            break;
+        case RITYPE_STRAY_FAIRY:
+            Gfx_DrawDListOpa(play, (Gfx*)gRockFairyDL);
+            break;
+        case RITYPE_JUNK:
+            Gfx_DrawDListOpa(play, (Gfx*)gRockJunkDL);
+            break;
+        default:
+            Gfx_DrawDListOpa(play, (Gfx*)gRockJunkDL);
+            break;
+    }
+}
+
 void SpawnRockDrop(Vec3f pos, RandoCheckId randoCheckId) {
     CustomItem::Spawn(
         pos.x, pos.y, pos.z, 0, CustomItem::KILL_ON_TOUCH | CustomItem::TOSS_ON_SPAWN | CustomItem::ABLE_TO_ZORA_RANG,
@@ -161,6 +213,14 @@ void Rando::ActorBehavior::InitEnIshiBehavior() {
         if (randoCheckId != RC_UNKNOWN && RANDO_SAVE_CHECKS[randoCheckId].shuffled && !RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
             SpawnRockDrop(enIshi->actor.world.pos, randoCheckId);
             *should = false;
+        }
+    });
+    COND_VB_SHOULD(VB_ISHI_DRAW_BE_OVERRIDDEN, shouldRegister, {
+        Actor* actor = va_arg(args, Actor*);
+        RandoCheckId randoCheckId = GetObjectRandoCheckId(actor);
+        if (randoCheckId != RC_UNKNOWN && !RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
+            *should = false;
+            actor->draw = EnIshi_RandoDraw;
         }
     });
 }

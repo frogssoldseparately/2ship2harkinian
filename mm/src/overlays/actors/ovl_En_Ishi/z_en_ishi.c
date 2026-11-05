@@ -480,10 +480,12 @@ void EnIshi_WaitForObject(EnIshi* this, PlayState* play) {
     if (Object_IsLoaded(&play->objectCtx, this->objectSlot)) {
         this->actor.objectSlot = this->objectSlot;
         this->actor.flags &= ~ACTOR_FLAG_UPDATE_CULLING_DISABLED;
-        if (!ENISHI_GET_USE_OBJECT(&this->actor)) {
-            this->actor.draw = EnIshi_DrawGameplayKeepObject;
-        } else {
-            this->actor.draw = EnIshi_DrawIshiObject;
+        if (GameInteractor_Should(VB_ISHI_DRAW_BE_OVERRIDDEN, true, this)) {
+            if (!ENISHI_GET_USE_OBJECT(&this->actor)) {
+                this->actor.draw = EnIshi_DrawGameplayKeepObject;
+            } else {
+                this->actor.draw = EnIshi_DrawIshiObject;
+            }
         }
         EnIshi_SetupIdle(this);
     }

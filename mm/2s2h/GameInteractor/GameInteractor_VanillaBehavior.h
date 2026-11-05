@@ -1253,6 +1253,14 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args
+    // - `*EnIshi`
+    VB_ISHI_DRAW_BE_OVERRIDDEN,
+
+    // #### `result`
+    // ```c
     // !gPlayerFormItemRestrictions[GET_PLAYER_FORM][itemId]
     // ```
     // #### `args`
