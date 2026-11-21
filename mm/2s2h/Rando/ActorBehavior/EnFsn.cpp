@@ -58,6 +58,31 @@ void Rando::ActorBehavior::InitEnFsnBehavior() {
                         Message_BombersNotebookQueueEvent(gPlayState, BOMBERS_NOTEBOOK_EVENT_RECEIVED_ALL_NIGHT_MASK);
                     }
                 }
+            } else {
+                // Handle rupees given for bottle contents
+                RandoCheckId randoCheckId = RC_UNKNOWN;
+                switch (*item) {
+                    case GI_RUPEE_BLUE:
+                        randoCheckId = RC_CURIOSITY_SHOP_RUPEE_005;
+                        break;
+                    case GI_RUPEE_RED:
+                        randoCheckId = RC_CURIOSITY_SHOP_RUPEE_020;
+                        break;
+                    case GI_RUPEE_PURPLE:
+                        randoCheckId = RC_CURIOSITY_SHOP_RUPEE_050;
+                        break;
+                    case GI_RUPEE_HUGE:
+                        randoCheckId = RC_CURIOSITY_SHOP_RUPEE_200;
+                        break;
+                }
+                if (randoCheckId != RC_UNKNOWN) {
+                    RandoSaveCheck& randoSaveCheck = RANDO_SAVE_CHECKS[randoCheckId];
+                    if (randoSaveCheck.shuffled && !randoSaveCheck.cycleObtained) {
+                        *should = false;
+                        randoSaveCheck.eligible = true;
+                        // TODO: immediately give rando item, but still continue the conversation.
+                    }
+                }
             }
         }
     });
