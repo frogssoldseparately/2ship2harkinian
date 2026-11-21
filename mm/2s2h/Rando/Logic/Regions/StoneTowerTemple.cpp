@@ -316,7 +316,10 @@ static RegisterShipInitFunc initFunc([]() {
         .connections = {
             CONNECTION(RR_STONE_TOWER_TEMPLE_INVERTED_WIZZROBE_ROOM, true),
             CONNECTION(RR_STONE_TOWER_TEMPLE_INVERTED_UNDER_BRIDGE, CAN_BE_DEKU)
-        }
+        },
+        .events = {
+            EVENT(RE_ACCESS_POE, CanKillEnemy(ACTOR_EN_POH)),
+        },
     };
     Regions[RR_STONE_TOWER_TEMPLE_INVERTED_UNDER_BRIDGE] = RandoRegion{ .name = "Under Bridge", .sceneId = SCENE_INISIE_R,
         .checks = {

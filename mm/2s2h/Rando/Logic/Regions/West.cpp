@@ -100,7 +100,10 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(GREAT_BAY_COAST, 0),              ENTRANCE(GROTTOS, 27), true),
-        }
+        },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
+        },
     };
     Regions[RR_GREAT_BAY_COAST_FISHERMAN_GROTTO] = RandoRegion{ .name = "Great Bay Coast Fisherman Grotto", .sceneId = SCENE_KAKUSIANA,
         .checks = {
@@ -123,6 +126,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(GREAT_BAY_COAST, 0),              ENTRANCE(GROTTOS, 26), true),
+        },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
         },
     };
     Regions[RR_GREAT_BAY_COAST] = RandoRegion{ .sceneId = SCENE_30GYOSON,
@@ -207,6 +213,9 @@ static RegisterShipInitFunc initFunc([]() {
         .connections = {
             CONNECTION(RR_GREAT_BAY_COAST, CAN_USE_ABILITY(SWIM)),
             CONNECTION(RR_GREAT_BAY_COAST_MINIGAME_PLATFORMS, RANDO_EVENTS[RE_CLEARED_GREAT_BAY_TEMPLE] && (HAS_ITEM(ITEM_HOOKSHOT))),
+        },
+        .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
         },
     };
     Regions[RR_GREAT_BAY_GREAT_FAIRY_FOUNTAIN] = RandoRegion{ .sceneId = SCENE_YOUSEI_IZUMI,
@@ -325,6 +334,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(ZORA_CAPE, 0),                    ENTRANCE(GROTTOS, 28), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
+        },
     };
     Regions[RR_ZORA_CAPE_OUTSIDE_FAIRY_FOUNTAIN] = RandoRegion{ .sceneId = SCENE_31MISAKI,
         .checks = {
@@ -362,7 +374,10 @@ static RegisterShipInitFunc initFunc([]() {
         .connections = {
             CONNECTION(RR_ZORA_CAPE_BEFORE_GREAT_BAY_TEMPLE, CAN_BE_ZORA && CAN_USE_ABILITY(SWIM)),
             CONNECTION(RR_ZORA_CAPE_OUTSIDE_FAIRY_FOUNTAIN, HAS_ITEM(ITEM_HOOKSHOT)),
-        }
+        },
+        .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
+        },
     };
     Regions[RR_ZORA_HALL_EVANS_ROOM] = RandoRegion{ .name = "Evan's Room", .sceneId = SCENE_BANDROOM,
         .checks = {

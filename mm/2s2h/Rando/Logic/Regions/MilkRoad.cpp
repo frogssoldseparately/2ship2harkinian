@@ -33,6 +33,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(ROMANI_RANCH, 4),                 ENTRANCE(CUCCO_SHACK, 0), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
+        },
         .timeStayRestrictions = {
             STAY(TIME_NIGHT1_PM_08_00, false),
             STAY(TIME_NIGHT2_PM_08_00, false),
@@ -52,6 +55,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(ROMANI_RANCH, 5),                 ENTRANCE(DOGGY_RACETRACK, 0), true),
+        },
+        .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
         },
         .timeStayRestrictions = {
             STAY(TIME_NIGHT1_PM_08_00, false),
@@ -146,6 +152,7 @@ static RegisterShipInitFunc initFunc([]() {
             CONNECTION(RR_MILK_ROAD_BEHIND_FENCE, (RANDO_EVENTS[RE_COWS_FROM_ALIENS] && IS_NIGHT2()) || FINAL_DAY()),
         },
         .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             EVENT(RE_ACCESS_PICTOGRAPH_TINGLE, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
             EVENT(RE_DESTROY_MILK_ROAD_BOULDER, CAN_BE_GORON && HAS_ITEM(ITEM_POWDER_KEG)),
         },
@@ -280,6 +287,7 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(DOGGY_RACETRACK, 0),              ENTRANCE(ROMANI_RANCH, 5), BETWEEN(TIME_DAY1_AM_06_00, TIME_NIGHT1_PM_08_00) || BETWEEN(TIME_DAY2_AM_06_00, TIME_NIGHT2_PM_08_00) || BETWEEN(TIME_DAY3_AM_06_00, TIME_NIGHT3_PM_08_00)),
         },
         .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             EVENT(RE_COWS_FROM_ALIENS, CanKillEnemy(ACTOR_EN_INVADEPOH) && IS_NIGHT1() && CAN_BE_GORON && HAS_ITEM(ITEM_POWDER_KEG)),
         },
     };

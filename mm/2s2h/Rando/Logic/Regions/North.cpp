@@ -222,6 +222,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(MOUNTAIN_VILLAGE_WINTER, 0),      ENTRANCE(GROTTOS, 23), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
+        },
     };
     Regions[RR_MOUNTAIN_VILLAGE] = RandoRegion{ .sceneId = SCENE_10YUKIYAMANOMURA,
         .checks = {
@@ -314,6 +317,9 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(PATH_TO_SNOWHEAD, 0),             ENTRANCE(MOUNTAIN_VILLAGE_WINTER, 4), true),
             EXIT(ENTRANCE(PATH_TO_MOUNTAIN_VILLAGE, 1),     ENTRANCE(MOUNTAIN_VILLAGE_WINTER, 6), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_FAIRY, RANDO_EVENTS[RE_CLEARED_SNOWHEAD_TEMPLE] && (CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS))),
+        },
         .oneWayEntrances = {
             ENTRANCE(MOUNTAIN_VILLAGE_WINTER, 8), // From Song of Soaring
         }
@@ -350,6 +356,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(PATH_TO_GORON_VILLAGE_WINTER, 0), ENTRANCE(GROTTOS, 24), true),
+        },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
         },
     };
     Regions[RR_PATH_TO_GORON_VILLAGE] = RandoRegion{ .sceneId = SCENE_17SETUGEN,
@@ -441,6 +450,9 @@ static RegisterShipInitFunc initFunc([]() {
         .connections = {
             CONNECTION(RR_PATH_TO_MOUNTAIN_VILLAGE_UPPER, CAN_BE_GORON || CAN_USE_EXPLOSIVE || CAN_USE_MAGIC_ARROW(FIRE)),
         },
+        .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
+        },
     };
     Regions[RR_PATH_TO_MOUNTAIN_VILLAGE_UPPER] = RandoRegion{ .name = "Upper", .sceneId = SCENE_13HUBUKINOMITI,
         .checks = {
@@ -486,6 +498,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(PATH_TO_SNOWHEAD, 1),             ENTRANCE(GROTTOS, 25), true),
+        },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
         },
     };
     Regions[RR_PATH_TO_SNOWHEAD_LOWER] = RandoRegion{ .sceneId = SCENE_14YUKIDAMANOMITI,

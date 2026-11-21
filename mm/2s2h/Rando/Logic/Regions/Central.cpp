@@ -17,6 +17,9 @@ static RegisterShipInitFunc initFunc([]() {
         .connections = {
             CONNECTION(RR_TERMINA_FIELD, CAN_GROW_BEAN_PLANT)
         },
+        .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
+        },
     };
     Regions[RR_ASTRAL_OBSERVATORY_PASSAGE] = RandoRegion{ .name = "Passage", .sceneId = SCENE_TENMON_DAI,
         .checks = {
@@ -347,6 +350,7 @@ static RegisterShipInitFunc initFunc([]() {
         .events = {
             EVENT(RE_ACCESS_FISH, true),
             EVENT(RE_ACCESS_BUGS, true),
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
             EVENT(RE_SETUP_MEET_ANJU, HAS_ITEM(ITEM_MASK_KAFEIS_MASK) && BETWEEN(TIME_DAY1_PM_01_45, TIME_NIGHT1_PM_09_00)),
             EVENT(RE_ANJU_MIDNIGHT_MEETING, RANDO_EVENTS[RE_SETUP_MEET_ANJU] && BETWEEN(TIME_NIGHT1_AM_12_00, TIME_DAY2_AM_06_00) && (Flags_GetRandoInf(RANDO_INF_OBTAINED_ROOM_KEY) || CAN_BE_DEKU)),
             EVENT(RE_DELIVER_PENDANT, RANDO_EVENTS[RE_ANJU_MIDNIGHT_MEETING] && Flags_GetRandoInf(RANDO_INF_OBTAINED_PENDANT_OF_MEMORIES) && (BETWEEN(TIME_DAY2_AM_06_00, TIME_NIGHT2_PM_09_00) || BETWEEN(TIME_DAY3_AM_06_00, TIME_DAY3_AM_11_30))),
@@ -393,6 +397,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(EAST_CLOCK_TOWN, 11),             ENTRANCE(MILK_BAR, 0), true),
+        },
+        .events = {
+            EVENT(RE_ACCESS_CHATEAU_ROMANI, CUR_UPG_VALUE(UPG_WALLET) >= 1 && CAN_AFFORD(RC_MILK_BAR_PURCHASE_CHATEAU) && HAS_ITEM(ITEM_MASK_ROMANI) && (BETWEEN(TIME_NIGHT1_PM_10_00, TIME_DAY2_AM_06_00) || BETWEEN(TIME_NIGHT2_PM_10_00, TIME_DAY3_AM_06_00) || BETWEEN(TIME_NIGHT3_PM_06_00, TIME_NIGHT3_PM_09_00) || AFTER(TIME_NIGHT3_PM_10_00))),
         },
         .timeStayRestrictions = {
             STAY(TIME_NIGHT1_PM_10_00, false),

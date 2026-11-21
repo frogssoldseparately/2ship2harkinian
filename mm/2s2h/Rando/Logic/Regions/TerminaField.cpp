@@ -35,6 +35,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(TERMINA_FIELD, 0),                ENTRANCE(GROTTOS, 11), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
+        },
     };
     Regions[RR_TERMINA_FIELD_COW_GROTTO] = RandoRegion{ .name = "Termina Field Cow", .sceneId = SCENE_KAKUSIANA,
         .checks = {
@@ -121,6 +124,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(TERMINA_FIELD, 0),                ENTRANCE(GROTTOS, 17), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
+        },
     };
     Regions[RR_TERMINA_FIELD_DODONGO_GROTTO] = RandoRegion{ .name = "Termina Field Dodongo", .sceneId = SCENE_KAKUSIANA,
         .checks = {
@@ -140,6 +146,8 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(TERMINA_FIELD, 0),                ENTRANCE(GROTTOS, 1), true),
         },
         .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
             // TODO: gSaveContext.save.saveInfo.unk_EA0 for gossip stone check
         },
     };
@@ -148,6 +156,7 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(TERMINA_FIELD, 0),                ENTRANCE(GROTTOS, 3), true),
         },
         .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             // TODO: gSaveContext.save.saveInfo.unk_EA0 for gossip stone check
         },
     };
@@ -168,6 +177,8 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(TERMINA_FIELD, 0),                ENTRANCE(GROTTOS, 0), true),
         },
         .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
             // TODO: gSaveContext.save.saveInfo.unk_EA0 for gossip stone check
         },
     };
@@ -183,6 +194,8 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(TERMINA_FIELD, 0),                ENTRANCE(GROTTOS, 2), true),
         },
         .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
             // TODO: gSaveContext.save.saveInfo.unk_EA0 for gossip stone check
         },
     };
@@ -205,6 +218,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(TERMINA_FIELD, 0),                ENTRANCE(GROTTOS, 13), true),
+        },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
         },
     };
     Regions[RR_TERMINA_FIELD_PILLAR_GROTTO] = RandoRegion{ .name = "Termina Field Pillar", .sceneId = SCENE_KAKUSIANA,
@@ -229,6 +245,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(TERMINA_FIELD, 0),                ENTRANCE(GROTTOS, 18), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
+        },
     };
     Regions[RR_TERMINA_FIELD_SCRUB_GROTTO] = RandoRegion{ .name = "Termina Field Scrub", .sceneId = SCENE_KAKUSIANA,
         .checks = {
@@ -238,6 +257,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(TERMINA_FIELD, 0),                ENTRANCE(GROTTOS, 9), true),
+        },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
         },
     };
     Regions[RR_TERMINA_FIELD_TALL_GRASS_GROTTO] = RandoRegion{ .name = "Termina Field Tall Grass", .sceneId = SCENE_KAKUSIANA,
@@ -262,6 +284,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(TERMINA_FIELD, 0),                ENTRANCE(GROTTOS, 19), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
+        }
     };
     Regions[RR_TERMINA_FIELD] = RandoRegion{ .sceneId = SCENE_00KEIKOKU,
         .checks = {
@@ -583,6 +608,9 @@ static RegisterShipInitFunc initFunc([]() {
             CONNECTION(RR_TERMINA_FIELD_BEFORE_PATH_TO_MOUNTAIN_VILLAGE, HAS_ITEM(ITEM_BOW)),
             CONNECTION(RR_TERMINA_FIELD_BEFORE_GREAT_BAY_COAST, CAN_PLAY_SONG(EPONA)),
             CONNECTION(RR_ASTRAL_OBSERVATORY_OUTSIDE, CAN_BE_DEKU),
+        },
+        .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
         },
     };
 }, {});

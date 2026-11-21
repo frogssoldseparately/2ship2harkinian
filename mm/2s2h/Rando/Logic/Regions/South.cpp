@@ -79,6 +79,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(DEKU_PALACE, 9),                  ENTRANCE(GROTTOS, 12), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
+        },
     };
     Regions[RR_DEKU_PALACE_INSIDE_LOWER] = RandoRegion{ .name = "Inside, Lower", .sceneId = SCENE_22DEKUCITY,
         .checks = {
@@ -258,6 +261,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(ROAD_TO_SOUTHERN_SWAMP, 0),       ENTRANCE(GROTTOS, 20), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
+        },
     };
     Regions[RR_ROAD_TO_SOUTHERN_SWAMP] = RandoRegion{ .sceneId = SCENE_24KEMONOMITI,
         .checks = {
@@ -302,6 +308,7 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(SWAMP_SHOOTING_GALLERY, 0),       ENTRANCE(ROAD_TO_SOUTHERN_SWAMP, 2), BEFORE(TIME_NIGHT1_PM_10_00) || BETWEEN(TIME_DAY2_AM_06_00, TIME_NIGHT2_PM_10_00) || BETWEEN(TIME_DAY3_AM_06_00, TIME_NIGHT3_PM_10_00)),
         },
         .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             EVENT(RE_ACCESS_PICTOGRAPH_TINGLE, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
             EVENT(RE_ACCESS_SPRING_WATER, true),
         },
@@ -327,6 +334,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(SOUTHERN_SWAMP_POISONED, 3),      ENTRANCE(GROTTOS, 21), true),
+        },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
         },
     };
     Regions[RR_SOUTHERN_SWAMP_NORTH] = RandoRegion{ .name = "North Tourist Section", .sceneId = SCENE_20SICHITAI,
@@ -376,6 +386,7 @@ static RegisterShipInitFunc initFunc([]() {
     		CONNECTION(RR_SOUTHERN_SWAMP_NEAR_WOODS, CAN_TRAVERSE_WAIST_DEEP_WATER),
         },
         .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
             EVENT(RE_ACCESS_SPRING_WATER, true),
             EVENT(RE_ACCESS_BEANS_REFILL, CAN_BE_DEKU && HAS_ITEM(ITEM_MAGIC_BEANS)),
             EVENT(RE_SOUTHERN_SWAMP_KILL_OCTOROK, (HAS_ITEM(ITEM_BOW) || HAS_ITEM(ITEM_HOOKSHOT) || CAN_BE_ZORA)),
@@ -465,6 +476,8 @@ static RegisterShipInitFunc initFunc([]() {
     		CONNECTION(RR_SOUTHERN_SWAMP_NORTH, CAN_TRAVERSE_WAIST_DEEP_WATER),
         },
         .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
             EVENT(RE_ACCESS_SPRING_WATER, true),
             EVENT(RE_ACCESS_PICTOGRAPH_SWAMP_GENERIC, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
         },
@@ -603,6 +616,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(WOODS_OF_MYSTERY, 0),             ENTRANCE(GROTTOS, 22), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
+        },
     };
     Regions[RR_WOODS_OF_MYSTERY] = RandoRegion{ .sceneId = SCENE_26SARUNOMORI,
         .checks = {
@@ -636,6 +652,7 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(SOUTHERN_SWAMP_POISONED, 7),      ENTRANCE(WOODS_OF_MYSTERY, 0), true),
         },
         .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
             EVENT(RE_SAVED_KOUME, HAS_BOTTLE && (CAN_ACCESS(RED_POTION_REFILL) || CAN_ACCESS(BLUE_POTION_REFILL))),
             EVENT(RE_MEET_KOTAKE_WOODS, SECOND_DAY() || FINAL_DAY()),
         },

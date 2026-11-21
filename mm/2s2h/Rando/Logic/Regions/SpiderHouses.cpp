@@ -301,6 +301,7 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .events = {
             EVENT(RE_ACCESS_BUGS, true),
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
         },
     };
 }, {});

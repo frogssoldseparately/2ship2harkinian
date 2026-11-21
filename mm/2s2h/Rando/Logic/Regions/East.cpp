@@ -137,6 +137,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(IKANA_CANYON, 0),                 ENTRANCE(GROTTOS, 29), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
+        },
     };
     Regions[RR_IKANA_CANYON_LOWER] = RandoRegion{ .name = "Lower", .sceneId = SCENE_IKANA,
         .checks = {
@@ -164,6 +167,7 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .events = {
             EVENT(RE_ACCESS_BLUE_POTION_REFILL, CUR_UPG_VALUE(UPG_WALLET) >= 1),
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
         },
     };
     Regions[RR_IKANA_CANYON_UPPER] = RandoRegion{ .name = "Upper", .sceneId = SCENE_IKANA,
@@ -191,6 +195,7 @@ static RegisterShipInitFunc initFunc([]() {
             CONNECTION(RR_IKANA_CANYON_LOWER, true),
         },
         .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             EVENT(RE_ACCESS_PICTOGRAPH_TINGLE, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
         },
         .oneWayEntrances = {
@@ -219,6 +224,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(IKANA_GRAVEYARD, 0),              ENTRANCE(GROTTOS, 30), true),
+        },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
         },
     };
     Regions[RR_IKANA_GRAVEYARD_LOWER] = RandoRegion{ .name = "Lower", .sceneId = SCENE_BOTI,
@@ -318,6 +326,9 @@ static RegisterShipInitFunc initFunc([]() {
             CONNECTION(RR_ROAD_TO_IKANA_FIELD_SIDE, CAN_RIDE_EPONA),
             CONNECTION(RR_ROAD_TO_IKANA_ABOVE_LEDGE, HAS_ITEM(ITEM_HOOKSHOT) && (HAS_ITEM(ITEM_MASK_GARO) || HAS_ITEM(ITEM_MASK_GIBDO))),
         },
+        .events = {
+            EVENT(RE_ACCESS_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
+        },
     };
     Regions[RR_ROAD_TO_IKANA_FIELD_SIDE] = RandoRegion{ .name = "Field Side", .sceneId = SCENE_IKANAMAE,
         .checks = {
@@ -354,6 +365,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(ROAD_TO_IKANA, 0),                ENTRANCE(GROTTOS, 31), true),
+        },
+        .events = {
+            EVENT(RE_ACCESS_MAGIC_MUSHROOM, HAS_ITEM(ITEM_MASK_SCENTS)),
         },
     };
     Regions[RR_SAKON_HIDEOUT] = RandoRegion{ .sceneId = SCENE_SECOM,
